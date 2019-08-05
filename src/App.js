@@ -7,7 +7,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
-import NowWhat from "./components/NowWhat";
+
+import { useQuery } from "urql";
+import gql from "graphql-tag";
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -27,17 +29,50 @@ const theme = createMuiTheme({
   }
 });
 
-const App = props => (
+const measurementQuery = gql`
+query getMeasurements($input: MeasurementQuery){
+  getMeasurements(input: $input){
+    metric
+    at
+    value
+  }
+}
+`;
+
+export const Data = ({ input }) => {
+  const [res] = useQuery({
+    query: measurementQuery,
+    variables: { input: { metricName: 'tubingPressure' } }
+  });
+  console.log(res)
+
+  if (res.fetching) {
+    return "Loading...";
+  } else if (res.error) {
+    return "Oh no!";
+  }
+  return (
+    <ul>
+    </ul>
+  );
+};
+
+
+const App = props => {
+  console.log(props, 'porps')
+  
+  return(
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
       <Wrapper>
         <Header />
-        <NowWhat />
+        <Data />
         <ToastContainer />
       </Wrapper>
     </Provider>
   </MuiThemeProvider>
-);
+  )
+};
 
 export default App;
