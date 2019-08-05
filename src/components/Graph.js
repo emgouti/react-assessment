@@ -7,9 +7,12 @@ import moment from 'moment';
 
 export default function Graph(props) {
   let { data } = props;
-  // if(data){
-  // data = props.data.slice(0, 1500)
-  // }
+  // for some reason, using the 'after' property isn't working,
+  // it rerenders thousands of times instead..couldn't figure it out
+  // so I'm just slicing the end of the array instead
+  if(data){
+  data = props.data.slice(Math.max(data.length - 1000, 1))
+  }
   console.log(data, 'HRAP')
   return (
     <ResponsiveContainer width="95%" height={500}>

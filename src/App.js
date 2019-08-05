@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 
-import gql from "graphql-tag";
 import MetricData from './components/MetricData'
+import { useQuery } from "urql";
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -29,9 +29,16 @@ const theme = createMuiTheme({
   }
 });
 
-
+const query = `
+query($input: MeasurementQuery){
+  getMeasurements(input: $input){
+    metric
+    at
+    value
+  }
+}
+`;
 const App = props => {
-
   return(
   <MuiThemeProvider theme={theme}>
     <CssBaseline />

@@ -26,6 +26,18 @@ subscription {
 }
 `;
 
+const queries = `
+query($input: [MeasurementQuery]){
+  getMultipleMeasurements(input: $input){
+    metric
+    measurements {
+      metric
+      at
+      value
+    }
+  }
+`;
+
 const handleSubscription = (metricData = [], response) => {
   console.log(response, 'response')
   console.log(metricData, 'DATA')
@@ -59,7 +71,10 @@ const handleSubscription = (metricData = [], response) => {
     const [result] = useQuery({
       query,
       variables: {
-        input: { metricName }
+        input: { 
+          metricName,
+          
+        }
       }
     });
     const { fetching, data, error } = result;
@@ -72,6 +87,8 @@ const handleSubscription = (metricData = [], response) => {
         }
         if (!data) return;
         const { getMeasurements } = data;
+
+        // type & payload
         dispatch({ type: actions.METRIC_DATA_RECEIVED, getMeasurements });
       },
       [dispatch, data, error]
