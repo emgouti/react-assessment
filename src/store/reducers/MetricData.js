@@ -1,27 +1,16 @@
 import * as actions from "../actions";
 
 const initialState = {
-    metric: '',
-    at: '',
-    value: '',
-    unit: ''
+    metricData: null,
 };
 
 const metricDataRecevied = (state, action) => {
     console.log(action, 'action')
+    console.log(state, 'state')
   const { getMeasurements } = action;
-  const {
-    metric,
-    at,
-    value,
-    unit
-  } = getMeasurements;
 
   return {
-    metric,
-    at,
-    value,
-    unit
+    metricData: getMeasurements
   };
 };
 

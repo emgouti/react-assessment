@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 
-import { useQuery } from "urql";
 import gql from "graphql-tag";
+import { Client, defaultExchanges, subscriptionExchange } from "urql";
 import MetricData from './components/MetricData'
 
 const store = createStore();
@@ -30,6 +30,25 @@ const theme = createMuiTheme({
   }
 });
 
+// const client = new Client({
+//   url: "/graphql",
+//   exchanges: [
+//     ...defaultExchanges,
+//     subscriptionExchange({
+//       forwardSubscription
+//     })
+//   ]
+// });
+
+const subscription = gql`
+subscription {
+  newMeasurement {
+    metric
+    at
+    value
+  }
+}
+`;
 
 const App = props => {
   console.log(props, 'porps')
@@ -39,8 +58,8 @@ const App = props => {
     <CssBaseline />
     <Provider store={store}>
       <Wrapper>
-        <MetricData />
         <Header />
+        <MetricData />
         <ToastContainer />
       </Wrapper>
     </Provider>

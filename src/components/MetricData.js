@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions";
 import { useQuery } from "urql";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Graph from './Graph'
 
 const query = `
-query getMeasurements($input: MeasurementQuery){
+query($input: MeasurementQuery){
   getMeasurements(input: $input){
     metric
     at
@@ -15,12 +16,12 @@ query getMeasurements($input: MeasurementQuery){
 `;
 
   const getMetricData = state => {
-    console.log(state, 'state')
-    const { metric, at, value } = state.metricData;
+    console.log(state, 'state in Comp')
+    const { metricData } = state.metricData;
+    console.log(metricData, 'state in Comp')
+
     return {
-      metric,
-      at,
-      value
+      metricData
     };
   };
   
@@ -34,12 +35,12 @@ query getMeasurements($input: MeasurementQuery){
     // Default to tubingPressure
     const metricName = 'tubingPressure';
     const dispatch = useDispatch();
-    const { metric, at, value } = useSelector(getMetricData);
+    const { metricData } = useSelector(getMetricData);
   
     const [result] = useQuery({
       query,
       variables: {
-        input: { metricName: metricName }
+        input: { metricName }
       }
     });
     const { fetching, data, error } = result;
@@ -60,6 +61,6 @@ query getMeasurements($input: MeasurementQuery){
     if (fetching) return <LinearProgress />;
   
     return (
-      null
+      <Graph data = {metricData}/>
     );
   };
