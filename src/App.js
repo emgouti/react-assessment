@@ -9,7 +9,6 @@ import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 
 import gql from "graphql-tag";
-import { Client, defaultExchanges, subscriptionExchange } from "urql";
 import MetricData from './components/MetricData'
 
 const store = createStore();
@@ -30,15 +29,6 @@ const theme = createMuiTheme({
   }
 });
 
-// const client = new Client({
-//   url: "/graphql",
-//   exchanges: [
-//     ...defaultExchanges,
-//     subscriptionExchange({
-//       forwardSubscription
-//     })
-//   ]
-// });
 
 const subscription = gql`
 subscription {

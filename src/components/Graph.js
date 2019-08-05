@@ -3,24 +3,20 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import moment from 'moment';
-// import { Store } from '../store/Store';
 
 
 export default function Graph(props) {
-//   const [state] = useContext(Store);
-  let first;
-  let last;
-//   if (state.length > 1) {
-//     first = state.data.first.at;
-//     last = state.data.last.at;
-//   }
-
+  let { data } = props;
+  if(data){
+  data = props.data.slice(0, 10000)
+  }
+  console.log(data, 'HRAP')
   return (
     <ResponsiveContainer width="95%" height={500}>
       <LineChart
         width={1000}
         height={600}
-        data={props.data}
+        data={data}
         margin={{
           top: 5, right: 0, left: 0, bottom: 5,
         }}

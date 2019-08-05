@@ -3,10 +3,21 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { Provider, createClient } from 'urql';
+import { SubscriptionClient } from 'subscriptions-transport-ws'
+import { Provider, createClient, defaultExchanges, subscriptionExchange } from "urql";
+
+const subscriptionClient = new SubscriptionClient('ws://react.eogresources.com/graphql', {})
 
 const client = createClient({
     url: 'https://react.eogresources.com/graphql',
+    exchanges: [
+      ...defaultExchanges,
+      subscriptionExchange({
+        // expects a function
+        forwardSubscription: operation => 
+          subscriptionClient.request(operation) 
+      })
+    ]
   });
   
 
