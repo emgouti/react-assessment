@@ -4,6 +4,7 @@ import * as actions from "../store/actions";
 import { useQuery } from "urql";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Graph from './Graph'
+import { useSubscription } from "urql";
 
 const query = `
 query($input: MeasurementQuery){
@@ -14,6 +15,22 @@ query($input: MeasurementQuery){
   }
 }
 `;
+
+const newData = `
+subscription {
+  newMeasurement {
+    metric
+    at
+    value
+  }
+}
+`;
+
+const handleSubscription = (metricData = [], response) => {
+  console.log(response, 'response')
+  console.log(metricData, 'DATA')
+  return [response.newMeasurement, ...metricData];
+};
 
   const getMetricData = state => {
     console.log(state, 'state in Comp')
@@ -32,6 +49,8 @@ query($input: MeasurementQuery){
   };
   
   const MetricData = () => {
+    // const [res] = useSubscription({ query: newData }, handleSubscription);
+    // console.log(res, 'res')
     // Default to tubingPressure
     const metricName = 'tubingPressure';
     const dispatch = useDispatch();

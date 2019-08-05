@@ -6,7 +6,11 @@ import * as serviceWorker from "./serviceWorker";
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { Provider, createClient, defaultExchanges, subscriptionExchange } from "urql";
 
-const subscriptionClient = new SubscriptionClient('ws://react.eogresources.com/graphql', {})
+const subscriptionClient = new SubscriptionClient('ws://react.eogresources.com/graphql', {
+  reconnect: true,
+  timeout: 30000,
+  keepAlive: 20000
+  })
 
 const client = createClient({
     url: 'https://react.eogresources.com/graphql',

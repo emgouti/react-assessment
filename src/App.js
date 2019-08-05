@@ -30,19 +30,8 @@ const theme = createMuiTheme({
 });
 
 
-const subscription = gql`
-subscription {
-  newMeasurement {
-    metric
-    at
-    value
-  }
-}
-`;
-
 const App = props => {
-  console.log(props, 'porps')
-  
+
   return(
   <MuiThemeProvider theme={theme}>
     <CssBaseline />

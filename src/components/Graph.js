@@ -7,9 +7,9 @@ import moment from 'moment';
 
 export default function Graph(props) {
   let { data } = props;
-  if(data){
-  data = props.data.slice(0, 10000)
-  }
+  // if(data){
+  // data = props.data.slice(0, 1500)
+  // }
   console.log(data, 'HRAP')
   return (
     <ResponsiveContainer width="95%" height={500}>
