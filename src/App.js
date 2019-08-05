@@ -10,6 +10,7 @@ import Wrapper from "./components/Wrapper";
 
 import { useQuery } from "urql";
 import gql from "graphql-tag";
+import MetricData from './components/MetricData'
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -29,34 +30,6 @@ const theme = createMuiTheme({
   }
 });
 
-const measurementQuery = gql`
-query getMeasurements($input: MeasurementQuery){
-  getMeasurements(input: $input){
-    metric
-    at
-    value
-  }
-}
-`;
-
-export const Data = ({ input }) => {
-  const [res] = useQuery({
-    query: measurementQuery,
-    variables: { input: { metricName: 'tubingPressure' } }
-  });
-  console.log(res)
-
-  if (res.fetching) {
-    return "Loading...";
-  } else if (res.error) {
-    return "Oh no!";
-  }
-  return (
-    <ul>
-    </ul>
-  );
-};
-
 
 const App = props => {
   console.log(props, 'porps')
@@ -66,8 +39,8 @@ const App = props => {
     <CssBaseline />
     <Provider store={store}>
       <Wrapper>
+        <MetricData />
         <Header />
-        <Data />
         <ToastContainer />
       </Wrapper>
     </Provider>
