@@ -17,7 +17,7 @@ const metricDataRecevied = (state, action) => {
 
 const addSubscriptionData = (state, action) => {
   console.log(action, 'action')
-  // console.log(state, 'state')
+  console.log(state, 'state')
   const { subscriptionData } = action;
 const { data } = subscriptionData;
 let newData;

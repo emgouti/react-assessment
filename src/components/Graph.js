@@ -13,7 +13,7 @@ export default function Graph(props) {
   if(data){
   data = props.data.slice(Math.max(data.length - 1000, 1))
   }
-  console.log(data[999], 'DATA')
+  console.log(data[999], 'DATALAST')
   return (
     <ResponsiveContainer width="95%" height={500}>
       <LineChart
