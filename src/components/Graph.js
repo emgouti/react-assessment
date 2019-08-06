@@ -13,7 +13,7 @@ export default function Graph(props) {
   if(data){
   data = props.data.slice(Math.max(data.length - 1000, 1))
   }
-  console.log(data, 'HRAP')
+  console.log(data[999], 'DATA')
   return (
     <ResponsiveContainer width="95%" height={500}>
       <LineChart
@@ -34,7 +34,7 @@ export default function Graph(props) {
         <YAxis dataKey="value" />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="value" dot={false}  />
+        <Line type="natural" dataKey="value" dot={false}  />
       </LineChart>
     </ResponsiveContainer>
   );

@@ -6,11 +6,7 @@ const initialState = {
 };
 
 const metricDataRecevied = (state, action) => {
-    // console.log(action, 'action')
-    // console.log(state, 'state')
   const { getMeasurements } = action;
-  const { newMeasurement } = action;
-  console.log(newMeasurement, 'NEW')
   let metric;
   metric = getMeasurements[0].metric;
   return {
@@ -21,12 +17,19 @@ const metricDataRecevied = (state, action) => {
 
 const addSubscriptionData = (state, action) => {
   console.log(action, 'action')
-  console.log(state, 'state')
-const { newMeasurement } = action;
-console.log(newMeasurement, 'NEW')
+  // console.log(state, 'state')
+  const { subscriptionData } = action;
+const { data } = subscriptionData;
+let newData;
+if(data){
+   newData = data.filter(d => d.metric === state.currentMetric)
+}
+console.log(newData, 'NEWNEWNEWN')
+
+
 return {
   ...state,
-  metricData: [...state.metricData, newMeasurement]
+  metricData: state.metricData.concat(newData)
 };
 };
 
