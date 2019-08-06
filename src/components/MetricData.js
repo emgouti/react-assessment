@@ -26,17 +26,17 @@ subscription {
 }
 `;
 
-const queries = `
-query($input: [MeasurementQuery]){
-  getMultipleMeasurements(input: $input){
-    metric
-    measurements {
-      metric
-      at
-      value
-    }
-  }
-`;
+// const queries = `
+// query($input: [MeasurementQuery]){
+//   getMultipleMeasurements(input: $input){
+//     metric
+//     measurements {
+//       metric
+//       at
+//       value
+//     }
+//   }
+// `;
 
   const getMetricData = state => {
     const { currentMetric, metricData } = state.metricData;
@@ -54,12 +54,10 @@ query($input: [MeasurementQuery]){
   };
   
   const MetricData = () => {
-    // console.log(res, 'res')
     // Default to tubingPressure
     const metricName = 'tubingPressure';
     const dispatch = useDispatch();
     const { currentMetric, metricData } = useSelector(getMetricData);
-    // console.log(currentMetric, 'CURRENT')
     
     const handleSubscription = (metricData = [], response) => {
       const { newMeasurement } = response;
