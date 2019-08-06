@@ -39,6 +39,7 @@ query($input: MeasurementQuery){
 }
 `;
 const App = props => {
+  console.log(store, 'stpre')
   return(
   <MuiThemeProvider theme={theme}>
     <CssBaseline />

@@ -34,7 +34,7 @@ export default function Graph(props) {
         <YAxis dataKey="value" />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="value" />
+        <Line type="monotone" dataKey="value" dot={false}  />
       </LineChart>
     </ResponsiveContainer>
   );

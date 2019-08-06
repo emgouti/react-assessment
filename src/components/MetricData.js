@@ -38,12 +38,6 @@ query($input: [MeasurementQuery]){
   }
 `;
 
-const handleSubscription = (metricData = [], response) => {
-  console.log(response, 'response')
-  console.log(metricData, 'DATA')
-  return [response.newMeasurement, ...metricData];
-};
-
   const getMetricData = state => {
     console.log(state, 'state in Comp')
     const { metricData } = state.metricData;
@@ -61,20 +55,23 @@ const handleSubscription = (metricData = [], response) => {
   };
   
   const MetricData = () => {
-    // const [res] = useSubscription({ query: newData }, handleSubscription);
     // console.log(res, 'res')
     // Default to tubingPressure
     const metricName = 'tubingPressure';
     const dispatch = useDispatch();
     const { metricData } = useSelector(getMetricData);
   
+    const handleSubscription = (metricData = [], response) => {
+      // console.log(response, 'res')
+      const { newMeasurement } = response.newMeasurement;
+      dispatch({ type: actions.ADD_SUBSCRIPTION_DATA, newMeasurement})
+      // return [response.newMeasurement, ...metricData];
+    };
+
     const [result] = useQuery({
       query,
       variables: {
-        input: { 
-          metricName,
-          
-        }
+        input: { metricName }
       }
     });
     const { fetching, data, error } = result;
@@ -93,6 +90,10 @@ const handleSubscription = (metricData = [], response) => {
       },
       [dispatch, data, error]
     );
+
+    // const [res] = useSubscription({ query: newData }, handleSubscription);
+
+    
   
     if (fetching) return <LinearProgress />;
   
