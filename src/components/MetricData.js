@@ -63,8 +63,6 @@ query($input: [MeasurementQuery]){
     
     const handleSubscription = (metricData = [], response) => {
       const { newMeasurement } = response;
-      console.log(newMeasurement, "DHKAJHDKJASHDKJSA")
-      
       return [newMeasurement];
     };
 
@@ -75,7 +73,6 @@ query($input: [MeasurementQuery]){
       }
     });
     const { fetching, data, error } = result;
-    // console.log(data, 'data')
     useEffect(
       () => {
         if (error) {
@@ -95,7 +92,6 @@ query($input: [MeasurementQuery]){
     useEffect(() => {
       dispatch({ type: actions.ADD_SUBSCRIPTION_DATA, subscriptionData})
     }, [dispatch, subscriptionData])
-    console.log(subscriptionData, 'SUBSCRIPTIONDATA')
   
     if (fetching) return <LinearProgress />;
   
